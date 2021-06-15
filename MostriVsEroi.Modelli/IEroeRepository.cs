@@ -8,7 +8,7 @@ namespace MostriVsEroi.Modelli
     {
         public List<Eroe> FetchEroi();
         public void AddEroi(Eroe e);
-        public void RemoveEroe(Eroe e);
+        public bool RemoveEroe(Eroe e);
     }
 }
 

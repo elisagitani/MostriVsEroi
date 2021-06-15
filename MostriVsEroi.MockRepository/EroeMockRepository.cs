@@ -23,9 +23,9 @@ namespace MostriVsEroi.MockRepository
             eroi.Add(e);
         }
 
-        public void RemoveEroe(Eroe e)
+        public bool RemoveEroe(Eroe e)
         {
-            eroi.Remove(e);
+           return eroi.Remove(e);
         }
     }
 }

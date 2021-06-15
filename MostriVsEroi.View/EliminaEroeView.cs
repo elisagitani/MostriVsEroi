@@ -13,8 +13,12 @@ namespace MostriVsEroi.View
             Eroe e = ScegliEroeDaEliminare(utente);
             if (e != null)
             {
-                EroeServices.RemoveEroe(utente, e);
-                Console.WriteLine("Eroe eliminato con successo");
+                
+                if(EroeServices.RemoveEroe(utente, e))
+                {
+                    Console.WriteLine("Eroe eliminato con successo");
+                }
+               
             }
 
         }

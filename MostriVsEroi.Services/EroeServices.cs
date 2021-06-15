@@ -19,9 +19,9 @@ namespace MostriVsEroi.Services
             emr.AddEroi(e);
         }
 
-        public static void RemoveEroe(Utente utente, Eroe e)
+        public static bool RemoveEroe(Utente utente, Eroe e)
         {
-            emr.RemoveEroe(e);
+            return emr.RemoveEroe(e);
         }
     }
 }
