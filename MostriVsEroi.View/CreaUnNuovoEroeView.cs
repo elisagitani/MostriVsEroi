@@ -15,18 +15,20 @@ namespace MostriVsEroi.View
             Console.Write("Inserisci il nome dell'eroe: ");
             string nome = Console.ReadLine();
            
-            Console.Write("Inserisci la categoria: ");
+            Console.Write("\nInserisci la categoria: ");
             string categoria = SceltaCategoria(utente);
             if (categoria != null)
             {
                 Console.Write("Inserisci l'arma: ");
-                Arma arma = SceltaArma(utente);
+                Arma arma = SceltaArma(utente,categoria);
 
                 if (arma != null)
                 {
                     Eroe e = EroeSchermataServices.GetEroe(nome, categoria, 1, arma.Nome, arma.PuntiDanno);
                     EroeServices.AddEroe(utente, e);
                     Console.WriteLine("Eroe inserito con successo");
+                   
+
                 }
                 else
                 {
@@ -76,10 +78,10 @@ namespace MostriVsEroi.View
             }
         }
 
-        public static Arma SceltaArma(Utente utente)
+        public static Arma SceltaArma(Utente utente, string categoria)
         {
             Console.WriteLine("\nScegli una delle armi tra quelle proposte: ");
-            List<Arma> armi = ArmaServices.GetArmi(utente);
+            List<Arma> armi = ArmaServices.GetArmi(utente,categoria);
             
             int scelta = 0;
             if (armi.Count > 0)

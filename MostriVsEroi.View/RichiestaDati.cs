@@ -10,7 +10,7 @@ namespace MostriVsEroi.View
     {
         internal static Utente InserisciUsernamePassword()
         {
-            Console.Write("Inserisci il tuo username: ");
+            Console.Write("\nInserisci il tuo username: ");
             string username = Console.ReadLine();
 
             Console.Write("Inserisci la tua password: ");

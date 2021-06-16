@@ -1,5 +1,6 @@
 ﻿using MostriVsEroi.Modelli;
 using System;
+using System.Collections.Generic;
 
 namespace MostriVsEroi.MockRepository
 {
@@ -9,6 +10,19 @@ namespace MostriVsEroi.MockRepository
         {
             utente.IsAuthenticated = true;
             return utente;
+        }
+
+        public List<Utente> FetchUtenti()
+        {
+            Utente u = new Utente("ely.95", "12345");
+            List<Utente> utenti = new List<Utente>();
+            utenti.Add(u);
+            return utenti;
+        }
+
+        public void AddUtente(Utente utente)
+        {
+
         }
     }
 }

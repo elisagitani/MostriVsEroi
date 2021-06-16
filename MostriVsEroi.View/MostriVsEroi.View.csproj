@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MostriVsEroi.Modelli\MostriVsEroi.Modelli.csproj" />
     <ProjectReference Include="..\MostriVsEroi.SchermataService\MostriVsEroi.SchermataServices.csproj" />
     <ProjectReference Include="..\MostriVsEroi.Services\MostriVsEroi.Services.csproj" />

@@ -14,7 +14,7 @@ namespace MostriVsEroi.View
             if (e != null)
             {
                 
-                if(EroeServices.RemoveEroe(utente, e))
+                //if(EroeServices.RemoveEroe(utente, e))
                 {
                     Console.WriteLine("Eroe eliminato con successo");
                 }

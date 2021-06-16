@@ -22,7 +22,8 @@ namespace MostriVsEroi.View
             }
             else
             {
-                Console.WriteLine("Devi prima registrarti");
+                Console.WriteLine("\nCredenziali inserite non corrette, non risulti registrato");
+                Console.WriteLine();
             }
         }
     }

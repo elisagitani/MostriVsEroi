@@ -18,7 +18,9 @@ namespace MostriVsEroi.View
                 Console.WriteLine("Eroe selezionato con successo");
                 Mostro m = SceltaMostro(utente, e);
                 Console.WriteLine($"\nIl mostro selezionato dal sistema è: {m.Nome} \nCaratteristiche mostro:\nLivello: {m.Livello} \nPunti vita: {m.PuntiVita} \nCategoria {m.Categoria} \nArma: {m.Arma.Nome} avente punti danno pari a {m.Arma.PuntiDanno}");
-                Partita(utente, e, m);
+                int puntiVitaMostro = m.PuntiVita;
+                int puntiVitaEroe = e.PuntiVita;
+                Partita(utente, e, m, puntiVitaMostro, puntiVitaEroe);
 
                 string scelta;
 
@@ -71,15 +73,17 @@ namespace MostriVsEroi.View
 
         }
 
-        public static void Partita(Utente utente, Eroe eroe, Mostro mostro)
+        public static void Partita(Utente utente, Eroe eroe, Mostro mostro, int puntiVitaMostro, int puntiVitaEroe)
         {
             //Attacco
-
+     
             Console.WriteLine($"\n{eroe.Nome} Attacca {mostro.Nome}");
-            int nuoviPuntiVitaMostro = mostro.PuntiVita - eroe.Arma.PuntiDanno;
+            
+            int nuoviPuntiVitaMostro = puntiVitaMostro - eroe.Arma.PuntiDanno;
             if (nuoviPuntiVitaMostro <= 0)
             {
                 Console.WriteLine("Hai vinto!!");
+                
                 //Chiamo funzionalità che calcola nuovo punteggio
 
             }
@@ -88,7 +92,7 @@ namespace MostriVsEroi.View
 
                 Console.WriteLine($"{mostro.Nome} dopo l'attacco ha ancora {nuoviPuntiVitaMostro} punti vita");
                 Console.WriteLine($"\n{mostro.Nome} Attacca {eroe.Nome}");
-                int nuoviPuntiVitaEroe = eroe.PuntiVita - mostro.Arma.PuntiDanno;
+                int nuoviPuntiVitaEroe = puntiVitaEroe - mostro.Arma.PuntiDanno;
                 Console.WriteLine($"{eroe.Nome} dopo l'attacco di {mostro.Nome} ha ancora {nuoviPuntiVitaEroe} punti vita");
 
                 if (nuoviPuntiVitaEroe <= 0)
@@ -99,9 +103,9 @@ namespace MostriVsEroi.View
                 }
                 else
                 {
-                    mostro.PuntiVita = nuoviPuntiVitaMostro;
-                    eroe.PuntiVita = nuoviPuntiVitaEroe;
-                    Partita(utente, eroe, mostro);
+                    puntiVitaMostro = nuoviPuntiVitaMostro;
+                    puntiVitaEroe = nuoviPuntiVitaEroe;
+                    Partita(utente, eroe, mostro, puntiVitaMostro,puntiVitaEroe);
 
                 }
 

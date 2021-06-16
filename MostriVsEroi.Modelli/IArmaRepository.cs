@@ -6,6 +6,6 @@ namespace MostriVsEroi.Modelli
 {
     public interface IArmaRepository
     {
-        public List<Arma> FetchArmi();
+        public List<Arma> FetchArmiEroi(string categoria);
     }
 }

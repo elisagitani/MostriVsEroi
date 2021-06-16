@@ -28,10 +28,10 @@ namespace MostriVsEroi.View
                         AccediView.Accedi();
                         break;
                     case "2":
-                        //Devo far registrare l'utente 
+                        RegistratiView.Registrati();
                         break;
                     case "0":
-                        Console.WriteLine("Ciao alla prossima");
+                        Console.WriteLine("Alla prossima partita");
                         vuoiContinuare = false;
                         break;
                     default:
