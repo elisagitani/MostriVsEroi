@@ -9,23 +9,37 @@ namespace MostriVsEroi.View
 {
     public static class CreaUnNuovoEroeView
     {
-        internal static void CreaNuovoEroe(Utente utente)
+        internal static void CreaNuovoEroe(Utente utente, int idUtente)
         {
-            
-            Console.Write("Inserisci il nome dell'eroe: ");
-            string nome = Console.ReadLine();
+            string nome;
+            do
+            {
+                Console.Write("Inserisci il nome dell'eroe: ");
+                nome = Console.ReadLine();
+                if(EroeServices.VerificaNome(nome))
+                {
+                    Console.WriteLine("Esiste già un eroe con questo nome");
+                }
+
+            } while (EroeServices.VerificaNome(nome) || nome==null);
            
+            
+
             Console.Write("\nInserisci la categoria: ");
             string categoria = SceltaCategoria(utente);
+           
             if (categoria != null)
             {
+                int idCategoria = CategoriaServices.RecuperaIdCategoria(categoria);         //Recupero IDCategoria
                 Console.Write("Inserisci l'arma: ");
                 Arma arma = SceltaArma(utente,categoria);
 
                 if (arma != null)
                 {
+                    int idArma = ArmaServices.RecuperaIdArmi(arma);
                     Eroe e = EroeSchermataServices.GetEroe(nome, categoria, 1, arma.Nome, arma.PuntiDanno);
-                    EroeServices.AddEroe(utente, e);
+                    int idLivello = LivelloVitaService.RecuperaIdLivelloVita(e);
+                    EroeServices.AddEroe(utente,idUtente, e, idCategoria,idArma, idLivello);
                     Console.WriteLine("Eroe inserito con successo");
                    
 
@@ -41,14 +55,13 @@ namespace MostriVsEroi.View
                 Console.WriteLine("Corri a inserire una categoria!!");
             }
 
-            
-
+      
         }
 
 
         public static string SceltaCategoria(Utente utente)
         {
-            Console.WriteLine("\nScegli una delle categorie tra quelle proposte: ");
+            Console.WriteLine("\n\nScegli una delle categorie tra quelle proposte: ");
             List<string> categorie = CategoriaServices.GetCategoriaEroi(utente);
             
             int scelta = 0;
@@ -80,7 +93,7 @@ namespace MostriVsEroi.View
 
         public static Arma SceltaArma(Utente utente, string categoria)
         {
-            Console.WriteLine("\nScegli una delle armi tra quelle proposte: ");
+            Console.WriteLine("\n\nScegli una delle armi tra quelle proposte: ");
             List<Arma> armi = ArmaServices.GetArmi(utente,categoria);
             
             int scelta = 0;

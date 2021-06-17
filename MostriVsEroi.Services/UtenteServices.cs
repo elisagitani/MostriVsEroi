@@ -24,5 +24,15 @@ namespace MostriVsEroi.Services
         {
             umr.AddUtente(utente);
         }
+
+        public static int RecuperaIdUtente(Utente u)
+        {
+            return umr.RecuperaIdUtente(u.Username);
+        }
+
+        public static void UpdateUtente(Utente utente, int idUtente)
+        {
+            umr.UpdateUtente(utente, idUtente);
+        }
     }
 }

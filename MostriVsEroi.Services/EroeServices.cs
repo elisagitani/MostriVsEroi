@@ -11,21 +11,38 @@ namespace MostriVsEroi.Services
     {
         //static EroeMockRepository emr = new EroeMockRepository();
         static DbManagerEroi emr = new DbManagerEroi();
-        public static List<Eroe> GetEroi(Utente utente)
+       
+        public static List<Eroe> GetEroi(Utente utente, int idUtente)
         {
-            return emr.FetchEroi();
+            return emr.FetchEroi(utente,idUtente);
             
         }
 
-        public static void AddEroe(Utente utente, Eroe e)
+        public static bool VerificaNome(string nome)
         {
-            emr.AddEroi(utente,e);
+            return emr.VerificaNome(nome);
+        }
+
+        public static void AddEroe(Utente utente, int idUtente, Eroe e, int idCategoria, int idArma, int idLivello)
+        {
+            
+            emr.AddEroi(utente, idUtente,e,idCategoria,idArma, idLivello);
 
         }
 
-        public static bool RemoveEroe(Utente utente, Eroe e)
+        public static void RemoveEroe(Utente utente, Eroe e,int idEroe)
         {
-            return emr.RemoveEroe(e);
+             emr.RemoveEroe(e, utente, idEroe);
+        }
+
+        public static int RecuperaIdEroe(Eroe e, Utente u, int idUtente)
+        {
+            return emr.RecuperaIdEroe(u, e, idUtente);
+        }
+
+        public static void UpdatePunteggio(Eroe e, int idEroe, int idLivello)
+        {
+            emr.UpdatePunteggio(e,idEroe, idLivello);
         }
     }
 }

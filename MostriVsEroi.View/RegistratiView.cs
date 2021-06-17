@@ -32,8 +32,10 @@ namespace MostriVsEroi.View
             else
             {
                 UtenteServices.AddUtente(utente);
+                int idUtente=UtenteServices.RecuperaIdUtente(utente);
                 Console.WriteLine("\nRegistrazione avvenuta con successo");
-                Menu.MenuNonAdmin(utente);
+
+                Menu.MenuNonAdmin(utente,idUtente);
             }
            
             

@@ -7,6 +7,6 @@ namespace MostriVsEroi.Modelli
     public interface ICategoriaRepository
     {
         public List<string> FetchCategorieEroi();
-        public int RecuperaIdCategoria(string categoria);
+       
     }
 }

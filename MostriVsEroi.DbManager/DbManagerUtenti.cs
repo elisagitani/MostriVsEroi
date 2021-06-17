@@ -36,6 +36,33 @@ namespace MostriVsEroi.DbManager
             }
         }
 
+        public void UpdateUtente(Utente utente, int idUtente)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();                                          //Da Testare
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "update dbo.Utenti set IsAdmin=@IsAdmin where IdUtente=@IdUtente";
+                    command.Parameters.AddWithValue("@IsAdmin", utente.IsAdmin);
+                    command.Parameters.AddWithValue("@IdUtente",idUtente);
+                    
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    connection.Close();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+
+                }
+
+            }
+        }
+
         public Utente GetUser(Utente utente)
         {
             using(SqlConnection connection=new SqlConnection(connectionString))
@@ -52,6 +79,12 @@ namespace MostriVsEroi.DbManager
                 if (reader.HasRows)
                 {
                     utente.IsAuthenticated = true;
+                    while (reader.Read())
+                    {
+                        var isAdmin = (bool)reader["IsAdmin"];
+                   
+                        utente.IsAdmin = isAdmin;
+                    }
                 }
                 else
                 {
@@ -80,6 +113,22 @@ namespace MostriVsEroi.DbManager
                 connection.Close();
 
                
+            }
+        }
+
+        public int RecuperaIdUtente(string user)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();                                          //Da Testare
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = "select IdUtente from dbo.Utenti where @Username=Username";
+                command.Parameters.AddWithValue("@Username", user);
+                int id = (int)command.ExecuteScalar();
+                return id;
+                connection.Close();
             }
         }
     }

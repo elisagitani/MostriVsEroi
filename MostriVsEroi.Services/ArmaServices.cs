@@ -13,7 +13,12 @@ namespace MostriVsEroi.Services
         static DbManagerArmi amr = new DbManagerArmi();
         public static List<Arma> GetArmi(Utente utente, string categoria)
         {
-            return amr.FetchArmiEroi(categoria);
+            return amr.FetchArmi(categoria);
+        }
+
+        public static int RecuperaIdArmi(Arma arma)
+        {
+            return amr.RecuperaIdArma(arma);
         }
     }
 }

@@ -8,20 +8,21 @@ namespace MostriVsEroi.View
 {
     class GiocaView
     {
-        public static void Gioca(Utente utente)
+        public static void Gioca(Utente utente, int idUtente)
         {
             //Scelta eroe
 
-            Eroe e = SceltaEroe(utente);
+            Eroe e = SceltaEroe(utente,idUtente);
             if (e != null)
             {
                 Console.WriteLine("Eroe selezionato con successo");
+                int idEroe = EroeServices.RecuperaIdEroe(e, utente, idUtente);
                 Mostro m = SceltaMostro(utente, e);
                 Console.WriteLine($"\nIl mostro selezionato dal sistema è: {m.Nome} \nCaratteristiche mostro:\nLivello: {m.Livello} \nPunti vita: {m.PuntiVita} \nCategoria {m.Categoria} \nArma: {m.Arma.Nome} avente punti danno pari a {m.Arma.PuntiDanno}");
                 int puntiVitaMostro = m.PuntiVita;
                 int puntiVitaEroe = e.PuntiVita;
-                Partita(utente, e, m, puntiVitaMostro, puntiVitaEroe);
-
+                Partita(utente, e, m, puntiVitaMostro, puntiVitaEroe, idUtente, idEroe);
+                
                 string scelta;
 
 
@@ -31,13 +32,13 @@ namespace MostriVsEroi.View
 
                 if (scelta == "SI" || scelta == "si")
                 {
-                    Gioca(utente);
+                    Gioca(utente,idUtente);
                 }
                 else
                 {
                     if (!utente.IsAdmin)
                     {
-                        Menu.MenuNonAdmin(utente);
+                        Menu.MenuNonAdmin(utente,idUtente);
                     }
                     else
                     {
@@ -53,6 +54,63 @@ namespace MostriVsEroi.View
                 Console.WriteLine("Corri a creare un nuovo eroe");
             }
 
+        }
+
+        private static Utente ControlloUtenteAdmin(Utente utente, int idUtente)
+        {
+            List<Eroe> eroi = EroeServices.GetEroi(utente, idUtente);
+
+            foreach(var eroe in eroi)
+            {
+                if (eroe.Livello == 3)
+                {
+                    utente.IsAdmin = true;
+                }
+            }
+
+            return utente;
+        }
+
+        private static void ControlloPunteggio(Utente utente, int idUtente)
+        {
+            List<Eroe> eroi = EroeServices.GetEroi(utente, idUtente);
+
+            foreach(var eroe in eroi)
+            {
+                if (eroe.PuntiAccumulati > 29 && eroe.Livello==1)
+                {
+                    AumentoLivello(eroe, utente, idUtente);   
+                }
+                if (eroe.PuntiAccumulati > 59 && eroe.Livello==2)
+                {
+                    AumentoLivello(eroe, utente, idUtente);
+                }
+                if (eroe.PuntiAccumulati > 89 && eroe.Livello==3)
+                {
+                    AumentoLivello(eroe, utente, idUtente);
+                }
+                if (eroe.PuntiAccumulati > 119 & eroe.Livello==4)
+                {
+                    AumentoLivello(eroe, utente, idUtente);
+                }
+
+            }
+        }
+
+        private static void AumentoLivello(Eroe e, Utente utente, int idUtente)
+        {
+            e.Livello += 1;
+            int idEroe = EroeServices.RecuperaIdEroe(e, utente, idUtente); //Recupero idEroe
+            int idLivello = LivelloVitaService.RecuperaIdLivelloVita(e); //Recupero idLivello
+            e.PuntiAccumulati = 0;
+            EroeServices.UpdatePunteggio(e, idEroe, idLivello);
+        }
+
+        private static Eroe CalcoloPunteggio(int livelloMostro, Eroe e)
+        {
+            e.PuntiAccumulati += livelloMostro * 10;
+         
+            return e;
         }
 
         private static Mostro SceltaMostro(Utente utente, Eroe eroe)
@@ -73,18 +131,18 @@ namespace MostriVsEroi.View
 
         }
 
-        public static void Partita(Utente utente, Eroe eroe, Mostro mostro, int puntiVitaMostro, int puntiVitaEroe)
+        public static void Partita(Utente utente, Eroe eroe, Mostro mostro, int puntiVitaMostro, int puntiVitaEroe, int idUtente, int idEroe)
         {
             //Attacco
-     
+           
             Console.WriteLine($"\n{eroe.Nome} Attacca {mostro.Nome}");
             
             int nuoviPuntiVitaMostro = puntiVitaMostro - eroe.Arma.PuntiDanno;
             if (nuoviPuntiVitaMostro <= 0)
             {
                 Console.WriteLine("Hai vinto!!");
+                ControlliPartita(eroe, mostro, utente, idUtente, idEroe);
                 
-                //Chiamo funzionalità che calcola nuovo punteggio
 
             }
             else
@@ -99,23 +157,40 @@ namespace MostriVsEroi.View
                 {
 
                     Console.WriteLine("\nHai perso!!");
+                   
 
                 }
                 else
                 {
                     puntiVitaMostro = nuoviPuntiVitaMostro;
                     puntiVitaEroe = nuoviPuntiVitaEroe;
-                    Partita(utente, eroe, mostro, puntiVitaMostro,puntiVitaEroe);
-
+                    Partita(utente, eroe, mostro, puntiVitaMostro, puntiVitaEroe, idUtente,idEroe);
+                    
                 }
 
             }
+
+            
         }
 
-        public static Eroe SceltaEroe(Utente utente)
+        private static void ControlliPartita(Eroe e, Mostro m, Utente utente, int idUtente,int idEroe)
+        {
+            e = CalcoloPunteggio(m.Livello, e);
+            Console.WriteLine($"{e.Nome} ha accumulato {e.PuntiAccumulati} punti");
+            int idLivelloEroe = LivelloVitaService.RecuperaIdLivelloVita(e);
+            EroeServices.UpdatePunteggio(e, idEroe, idLivelloEroe);
+            //Devo controllae il punteggio degli eroi dell'utente 
+            ControlloPunteggio(utente, idUtente);
+            //DevoControllare se utente può diventare admin
+
+            utente = ControlloUtenteAdmin(utente, idUtente);
+            UtenteServices.UpdateUtente(utente, idUtente);
+        }
+
+        public static Eroe SceltaEroe(Utente utente,int idUtente)
         {
             Console.WriteLine("Con quale eroe vuoi iniziare la partita?");
-            List<Eroe> eroi = EroeServices.GetEroi(utente);
+            List<Eroe> eroi = EroeServices.GetEroi(utente,idUtente);
             
             int scelta;
             if (eroi.Count > 0)
@@ -143,6 +218,8 @@ namespace MostriVsEroi.View
             }
 
         }
+
+       
 
     }
 }

@@ -14,11 +14,13 @@ namespace MostriVsEroi.View
             utente = UtenteServices.VerifyAuthentication(utente);
             if (utente.IsAuthenticated && utente.IsAdmin)
             {
-                //MenuAdmin
+                int idUtente = UtenteServices.RecuperaIdUtente(utente);
+                Menu.MenuAdmin(utente, idUtente);
             }
             else if (utente.IsAuthenticated && !utente.IsAdmin)
             {
-                Menu.MenuNonAdmin(utente);
+                int idUtente = UtenteServices.RecuperaIdUtente(utente);
+                Menu.MenuNonAdmin(utente,idUtente);
             }
             else
             {

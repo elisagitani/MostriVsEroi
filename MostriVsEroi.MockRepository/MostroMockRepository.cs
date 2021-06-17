@@ -14,6 +14,7 @@ namespace MostriVsEroi.MockRepository
             Mostro m2 = new Mostro("Mostro2", "Orco", new Arma("Clava", 5), 2, 40);
             Mostro m3 = new Mostro("Mostro3", "Signore del male", new Arma("Divinazione", 15), 2, 40);
             Mostro m4 = new Mostro("Mostro4", "Signore del male", new Arma("Fulmine", 10), 1, 20);
+            //Mostro m5 = new Mostro("Mostro5", "Orco", new Arma("Spada Rotta", 3), 2, 40);
             mostri.Add(m1);
             mostri.Add(m2);
             mostri.Add(m3);

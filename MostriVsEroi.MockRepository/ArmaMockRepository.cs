@@ -8,7 +8,7 @@ namespace MostriVsEroi.MockRepository
     public class ArmaMockRepository:IArmaRepository
     {
 
-        public List<Arma> FetchArmiEroi(string categoria)
+        public List<Arma> FetchArmi(string categoria)
         {
             List<Arma> armi = new List<Arma>();
             Arma a1 = new Arma("Alabarda", 15);

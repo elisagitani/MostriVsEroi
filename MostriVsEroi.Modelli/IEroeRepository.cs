@@ -6,9 +6,9 @@ namespace MostriVsEroi.Modelli
 {
     public interface IEroeRepository
     {
-        //public List<Eroe> FetchEroi();
-        public void AddEroi(Utente u,Eroe e);
-        //public bool RemoveEroe(Eroe e);
+        public List<Eroe> FetchEroi(Utente utente, int idUtente);
+        public void AddEroi(Utente u, int idUtente, Eroe e, int idCategoria, int idArma, int idLivello);
+        public void RemoveEroe(Eroe e, Utente u, int idEroe);
     }
 }
 

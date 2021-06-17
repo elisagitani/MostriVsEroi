@@ -8,25 +8,26 @@ namespace MostriVsEroi.View
 {
     public class EliminaEroeView
     {
-        internal static void EliminaEroe(Utente utente)
+        internal static void EliminaEroe(Utente utente, int idUtente)
         {
-            Eroe e = ScegliEroeDaEliminare(utente);
+            Eroe e = ScegliEroeDaEliminare(utente,idUtente);
+            int idEroe = EroeServices.RecuperaIdEroe(e,utente,idUtente);
             if (e != null)
             {
+
+               EroeServices.RemoveEroe(utente, e, idEroe);
                 
-                //if(EroeServices.RemoveEroe(utente, e))
-                {
-                    Console.WriteLine("Eroe eliminato con successo");
-                }
+               Console.WriteLine("Eroe eliminato con successo");
+                
                
             }
 
         }
 
-        public static Eroe ScegliEroeDaEliminare(Utente utente)
+        public static Eroe ScegliEroeDaEliminare(Utente utente,int idUtente)
         {
             Console.WriteLine("Quale eroe vuoi eliminare?");
-            List<Eroe> eroi = EroeServices.GetEroi(utente);
+            List<Eroe> eroi = EroeServices.GetEroi(utente,idUtente);
 
             int scelta;
             if (eroi.Count > 0)

@@ -9,7 +9,7 @@ namespace MostriVsEroi.MockRepository
     {
 
         List<Eroe> eroi = new List<Eroe>();
-        public List<Eroe> FetchEroi()
+        public List<Eroe> FetchEroi(Utente utente, int idUtente)
         {
             List<Eroe> eroi = new List<Eroe>();
             Eroe e1 = new Eroe("PrimoEroe", "Guerriero", 1, new Arma("Ascia", 8), 20, 0);
@@ -22,16 +22,16 @@ namespace MostriVsEroi.MockRepository
         }
 
 
-        public void AddEroi(Utente u,Eroe e)
+        public void AddEroi(Utente u,int idUtente,Eroe e, int idCategoria, int idArma, int idLivello)
         {
             eroi.Add(e);
             
         }
 
-        public bool RemoveEroe(Eroe e)
+        public void RemoveEroe(Eroe e,Utente u, int idEroe)
         {
 
-            return eroi.Remove(e);
+             eroi.Remove(e);
 
         }
     }
