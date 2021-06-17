@@ -77,7 +77,7 @@ namespace MostriVsEroi.View
 
                 } while (!int.TryParse(Console.ReadLine(), out scelta) || scelta < 1 || scelta > livelli.Count);
                 
-                return livelli[--scelta];
+                return livelli[scelta];
             }
             else
             {
