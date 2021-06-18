@@ -21,7 +21,6 @@ namespace MostriVsEroi.MockRepository
         
         }
 
-
         public void AddEroi(Utente u,int idUtente,Eroe e, int idCategoria, int idArma, int idLivello)
         {
             eroi.Add(e);
@@ -33,6 +32,26 @@ namespace MostriVsEroi.MockRepository
 
              eroi.Remove(e);
 
+        }
+
+        public void UpdatePunteggio(Eroe e, int idEroe, int idLivello)
+        {
+
+        }
+        public bool VerificaNome(string nome)
+        {
+            return true;
+        }
+
+        public int RecuperaIdEroe(Utente u, Eroe e, int idUtente)
+        {
+            return 0;
+        }
+
+        public Dictionary<Eroe, string> ClassificaGlobale()
+        {
+            Dictionary<Eroe, string> classifica = new Dictionary<Eroe, string>();
+            return classifica;
         }
     }
 }

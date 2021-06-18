@@ -88,7 +88,7 @@ namespace MostriVsEroi.DbManager
             {
                 try
                 {
-                    connection.Open();                                          //Da Testare
+                    connection.Open();                                          
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.Text;

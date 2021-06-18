@@ -116,7 +116,7 @@ namespace MostriVsEroi.View
                         CreaNuovoMostroView.CreaMostro(utente, idUtente);
                         break;
                     case "5":
-                        // Visualizza la classifica globale
+                        ClassificaGlobaleView.Classifica();
                         break;
                     case "0":
                         MainMenu();
@@ -128,5 +128,8 @@ namespace MostriVsEroi.View
                 }
             } while (vuoiContinuare);
         }
+
+
+
     }
 }

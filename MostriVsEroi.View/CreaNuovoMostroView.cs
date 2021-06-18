@@ -18,7 +18,7 @@ namespace MostriVsEroi.View
                 nome = Console.ReadLine();
                 if (MostroServices.VerificaNome(nome))
                 {
-                    Console.WriteLine("Esiste già un mostro con questo nome");
+                    Console.WriteLine("\nEsiste già un mostro con questo nome");
                 }
 
             } while (MostroServices.VerificaNome(nome) || nome == null);
@@ -40,7 +40,6 @@ namespace MostriVsEroi.View
                     int idLivello = LivelloVitaService.RecuperaIdLivelloVita(m);
                     MostroServices.AddMostro(m, idCategoria, idArma, idLivello);
                     Console.WriteLine("Mostro inserito con successo");
-
 
                 }
                 else

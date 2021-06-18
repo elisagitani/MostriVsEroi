@@ -10,15 +10,37 @@ namespace MostriVsEroi.View
     {
         internal static Utente InserisciUsernamePassword()
         {
-            Console.Write("\nInserisci il tuo username: ");
-            string username = Console.ReadLine();
+            string username;
+            do
+            {
+                Console.Write("\nInserisci il tuo username: ");
+                username = Console.ReadLine();
+                if(username == null || username == " " || username == "")
+                {
+                    Console.WriteLine("\nUsername non valido");
+                }
 
-            Console.Write("Inserisci la tua password: ");
-            string password = Console.ReadLine();
+            } while (username == null || username == " " || username=="");
 
-            return UtenteSchermataServices.GetUtente(username, password);
 
+            string password;
+            do
+            {
+                Console.Write("Inserisci la tua password: ");
+                password = Console.ReadLine();
+                if(password == null || password == " " || password == "")
+                {
+                    Console.WriteLine("\nPassword non valida");
+                    
+                
+            }
+            } while (password == null || password == " " || password == "");
+                
+
+                return UtenteSchermataServices.GetUtente(username, password);
+      
         }
+
 
         
 

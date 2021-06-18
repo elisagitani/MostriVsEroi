@@ -15,6 +15,17 @@ namespace MostriVsEroi.MockRepository
             return categorie;
         }
 
-        
+        public int RecuperaIdCategoria(string categoria)
+        {
+            return 0;               //Viene implementato nel dbManager
+        }
+
+
+        public List<string> FetchCategorieMostri()
+        {
+            List<string> categorie = new List<string>();
+            return categorie;                               //Viene implementato nel dbManager
+        }
+
     }
 }

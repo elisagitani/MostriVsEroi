@@ -23,5 +23,16 @@ namespace MostriVsEroi.MockRepository
             return mostri;
 
         }
+
+        public void AddMostro(Mostro m, int idCategoria, int idArma, int idLivello)
+        {
+
+        }
+
+
+        public bool VerificaNome(string nome)
+        {
+            return true;
+        }
     }
 }

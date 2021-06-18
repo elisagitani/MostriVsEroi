@@ -16,7 +16,7 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();                                          //Da Testare
+                connection.Open();                                         
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.Text;
@@ -32,7 +32,7 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();                                          //Da Testare
+                connection.Open();                                         
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.Text;
@@ -48,12 +48,12 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();                                          //Da Testare
+                connection.Open();                                         
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
                 command.CommandType = System.Data.CommandType.Text;
                 command.CommandText = "select Livello from dbo.LivelliVita where @PuntiVita=PuntiVita";
-                command.Parameters.AddWithValue("@Livello", puntiVita);
+                command.Parameters.AddWithValue("@PuntiVita", puntiVita);
                 int id = (int)command.ExecuteScalar();
                 return id;
                 connection.Close();
@@ -66,7 +66,7 @@ namespace MostriVsEroi.DbManager
             {
                 try
                 {
-                    connection.Open();                                          //Da Testare
+                    connection.Open();                                         
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.Text;

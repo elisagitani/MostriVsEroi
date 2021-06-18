@@ -26,5 +26,10 @@ namespace MostriVsEroi.MockRepository
             return armi;
 
         }
+
+        public int RecuperaIdArma(Arma arma)
+        {
+            return 0;           //é stato implementato nel dbManager
+        }
     }
 }

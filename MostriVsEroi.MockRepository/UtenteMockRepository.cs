@@ -24,5 +24,14 @@ namespace MostriVsEroi.MockRepository
         {
 
         }
+        public int RecuperaIdUtente(string user)
+        {
+            return 0;
+        }
+
+        public void UpdateUtente(Utente utente, int idUtente)
+        {
+
+        }
     }
 }

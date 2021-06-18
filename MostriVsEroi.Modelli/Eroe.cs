@@ -28,6 +28,15 @@ namespace MostriVsEroi.Modelli
             Arma = arma;
 
         }
+        public Eroe(string nome, string categoria, int livello, int puntiVita, int puntiAccumulati)
+        {
+            Nome = nome;
+            Categoria = categoria;
+            Livello = livello;
+            PuntiVita = puntiVita;
+            PuntiAccumulati = puntiAccumulati;
+            
+        }
 
 
     }

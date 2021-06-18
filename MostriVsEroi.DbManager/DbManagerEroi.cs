@@ -43,13 +43,54 @@ namespace MostriVsEroi.DbManager
             }
         }
 
+        public Dictionary<Eroe, string> ClassificaGlobale()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                Dictionary<Eroe, string> eroi = new Dictionary<Eroe, string>();
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;                         //Probabilmente ho capito male. Se bisogna prendere i primi 10 eroi con punteggio in ordine decrescente per livello allora forse
+                                                                                                //sarebbe meglio utilizzare le viste create nel db UtenteConEroiLivello1,2, ecc. Fare la select e inserire nel dictionary eroi i dati di ciascuna tabella
+
+                    command.CommandText = "select * from dbo.ClassificaGlobale";
+                    
+                    SqlDataReader reader = command.ExecuteReader();
+                    
+                    while (reader.Read())
+                    {
+                        var user = (string)reader["Username"];
+                        var nome = (string)reader["NomeEroe"];
+                        var categoria = (string)reader["Categoria"];
+                        var livello = (int)reader["Livello"];
+                        var puntiVita = (int)reader["PuntiVita"];
+                        var puntiAccumulati = (int)reader["PunteggioAccumulato"];
+
+                        Eroe e = new Eroe(nome, categoria, livello, puntiVita, puntiAccumulati);
+
+                        eroi.Add(e,user);
+                    }
+                    return eroi;
+                    connection.Close();
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
+
         public void UpdatePunteggio(Eroe e, int idEroe, int idLivello)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
                 {
-                    connection.Open();                                          //Da Testare
+                    connection.Open();                                         
                     SqlCommand command = new SqlCommand();
                     command.Connection = connection;
                     command.CommandType = System.Data.CommandType.Text;

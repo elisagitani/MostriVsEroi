@@ -14,11 +14,11 @@ namespace MostriVsEroi.View
             string nome;
             do
             {
-                Console.Write("Inserisci il nome dell'eroe: ");
+                Console.Write("\nInserisci il nome dell'eroe: ");
                 nome = Console.ReadLine();
                 if(EroeServices.VerificaNome(nome))
                 {
-                    Console.WriteLine("Esiste già un eroe con questo nome");
+                    Console.WriteLine("\nEsiste già un eroe con questo nome");
                 }
 
             } while (EroeServices.VerificaNome(nome) || nome==null);

@@ -44,5 +44,10 @@ namespace MostriVsEroi.Services
         {
             emr.UpdatePunteggio(e,idEroe, idLivello);
         }
+
+        public static Dictionary<Eroe,string> RecuperaClassifica()
+        {
+            return emr.ClassificaGlobale();
+        }
     }
 }

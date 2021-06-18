@@ -81,15 +81,24 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();                                          //Da Testare
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "select IdCategoria from dbo.Categorie where @Nome=Nome";
-                command.Parameters.AddWithValue("@Nome", categoria);
-                int id = (int)command.ExecuteScalar();
-                return id;
-                connection.Close();
+                try
+                {
+                    connection.Open();                                         
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "select IdCategoria from dbo.Categorie where @Nome=Nome";
+                    command.Parameters.AddWithValue("@Nome", categoria);
+                    int id = (int)command.ExecuteScalar();
+                    return id;
+                    connection.Close();
+                }
+                catch(SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+                
             }
         }
     }

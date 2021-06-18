@@ -15,26 +15,35 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "select NomeArma, PuntiDanno from dbo.ArmiConCategorieEroiEMostri where Categoria=@Categoria";
-                command.Parameters.AddWithValue("@Categoria", categoria);
-                SqlDataReader reader = command.ExecuteReader();
-                List<Arma> armi = new List<Arma>();
-                while (reader.Read())
+                try
                 {
-                    var nome = (string)reader["NomeArma"];
-                    var puntiDanno = (int)reader["PuntiDanno"];
+                    connection.Open();
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "select NomeArma, PuntiDanno from dbo.ArmiConCategorieEroiEMostri where Categoria=@Categoria";
+                    command.Parameters.AddWithValue("@Categoria", categoria);
+                    SqlDataReader reader = command.ExecuteReader();
+                    List<Arma> armi = new List<Arma>();
+                    while (reader.Read())
+                    {
+                        var nome = (string)reader["NomeArma"];
+                        var puntiDanno = (int)reader["PuntiDanno"];
 
 
-                    Arma a = new Arma(nome, puntiDanno);
-                    armi.Add(a);
+                        Arma a = new Arma(nome, puntiDanno);
+                        armi.Add(a);
 
+                    }
+                    return armi;
+                    connection.Close();
                 }
-                return armi;
-                connection.Close();
+                catch(SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+               
             }
         }
 
@@ -42,15 +51,25 @@ namespace MostriVsEroi.DbManager
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                connection.Open();                                          //Da Testare
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.CommandType = System.Data.CommandType.Text;
-                command.CommandText = "select IdArma from dbo.Armi where @Nome=Nome";
-                command.Parameters.AddWithValue("@Nome", arma.Nome);
-                int id = (int)command.ExecuteScalar();
-                return id;
-                connection.Close();
+                try
+                {
+                    connection.Open();                                         
+                    SqlCommand command = new SqlCommand();
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = "select IdArma from dbo.Armi where @Nome=Nome";
+                    command.Parameters.AddWithValue("@Nome", arma.Nome);
+                    int id = (int)command.ExecuteScalar();
+                    return id;
+                    connection.Close();
+
+                }
+                catch(SqlException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+                
             }
         }
 
